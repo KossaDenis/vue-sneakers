@@ -1,12 +1,12 @@
 <template>
     <div class="card">
-        <img class="icon-like" src="/icons/like-1.svg" alt="Like 1">
-        <img class="sneakers-photo" src="/sneakers/sneakers-1.jpg" alt="Sneakers">
-        <h2 class="title-card">Мужские Кроссовки Nike Blazer Mid Suede</h2>
+        <img class="icon-like" :src="isFavorite ? '/icons/like-2.svg' : '/icons/like-1.svg'" alt="Like 1">
+        <img class="sneakers-photo" :src="imageURL" alt="Sneakers">
+        <h2 class="title-card">{{ title }}</h2>
         <div class="block-price">
             <div>
                 <p class="price-text">ЦЕНА:</p>
-                <p class="price">12 999 руб.</p>
+                <p class="price">{{ price }} руб.</p>
             </div>
             <div>
                 <img class="icon-plus" :src="isAdded ? '/icons/checked.svg' : '/icons/plus.svg'" alt="Plus">
@@ -14,7 +14,6 @@
         </div>
     </div>
 </template>
-@/assets/icons/plus.svg
 <script setup>
 defineProps({
     imageURL: String,
@@ -29,12 +28,13 @@ defineProps({
 .card {
     position: relative;
     width: 210px;
-    border: 1px solid #F3F3F3;
+    border: 2px solid #EAEAEA;
     border-radius: 40px;
     padding: 25px;
     transition: .2s;
     text-align: center;
     cursor: pointer;
+    background-color: white;
 }
 
 .card:hover {

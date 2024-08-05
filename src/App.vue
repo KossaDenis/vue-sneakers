@@ -1,16 +1,15 @@
 <template>
+    <!-- <Drawer /> -->
     <div class="main-block">
         <Header />
-        <div class="product-block">
-            <h1 class="title">Все кроссовки</h1>
-            <CardList />
-        </div>
+        <Content />
     </div>
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue'
-import CardList from './components/CardList.vue';
+import Header from './components/Header.vue'
+import Content from './components/Content.vue';
+import Drawer from './components/Cart/Drawer.vue';
 </script>
 
 <style scoped>
@@ -20,15 +19,6 @@ import CardList from './components/CardList.vue';
     margin: 30px auto;
     border-radius: 20px;
     box-shadow: 0px 10px 20px 0px #0000000A;
-}
 
-.product-block {
-    padding: 35px 45px;
-}
-
-.title {
-    margin-bottom: 30px;
-    font-weight: 700;
-    font-size: 32px;
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
     <div class="cards">
-        <Card 
-        imageURL="/sneakers/sneakers-1.jpg" 
-        title="Мужские Кроссовки Nike Blazer Mid Suede" 
-        :price="12999"
-        :isAdded="false" 
-        :isFavorite="false" 
-        />
-        
+        <div v-for="item in items" :key="item.id">
+            <Card :imageURL="item.imageUrl" :title="item.title" :price="item.price" :isAdded="false"
+                :isFavorite="false" />
+        </div>
     </div>
 </template>
 
 <script setup>
 import Card from '../Card/CardItem.vue';
+defineProps({
+    items: Array
+})
+
 
 </script>
 

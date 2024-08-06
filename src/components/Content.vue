@@ -14,12 +14,15 @@
                 </div>
             </div>
         </div>
-        <CardList />
+        <CardList :items="items" />
     </div>
 </template>
 
 <script setup>
 import CardList from './Card/CardList.vue';
+defineProps({
+    items: Array
+})
 </script>
 
 <style scoped>
@@ -27,11 +30,11 @@ import CardList from './Card/CardList.vue';
     padding: 35px 45px;
 }
 
-.content-block{
+.content-block {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .title {

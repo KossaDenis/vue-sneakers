@@ -28,6 +28,7 @@ defineProps({
 .card {
     position: relative;
     width: 210px;
+    height: 289px;
     border: 2px solid #EAEAEA;
     border-radius: 40px;
     padding: 25px;

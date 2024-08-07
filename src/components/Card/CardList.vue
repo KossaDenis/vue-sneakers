@@ -1,9 +1,9 @@
 <template>
     <div class="cards">
-        <div v-for="item in items" :key="item.id">
-            <Card :imageURL="item.imageUrl" :title="item.title" :price="item.price" :isAdded="false"
-                :isFavorite="false" />
-        </div>
+        <transition-group>
+            <Card v-for="item in items" :key="item.id" :imageURL="item.imageUrl" :title="item.title" :price="item.price"
+                :isAdded="false" :isFavorite="false" />
+        </transition-group>
     </div>
 </template>
 

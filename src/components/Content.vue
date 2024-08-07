@@ -1,28 +1,46 @@
 <template>
     <div class="product-block">
-        <div class="content-block">
+        <div v-if="!loading" class="content-block">
             <h1 class="title">Все кроссовки</h1>
             <div class="select-search-block">
-                <select class="select">
-                    <option>По названию</option>
-                    <option>По цене (дешевые)</option>
-                    <option>По цене (дорогие)</option>
-                </select>
+                <MySelect @change="$emit('sort', $event.target.value)">
+                    <option value="default">По стандарту</option>
+                    <option value='name'>По названию</option>
+                    <option value='priceAscending'>По цене (дешевые)</option>
+                    <option value='priceDescending'>По цене (дорогие)</option>
+                </MySelect>
                 <div class="search-block">
-                    <input class="search" type="text" placeholder="Поиск...">
+                    <MyInput @input="$emit('search', valueInput)" v-model="valueInput" type="text"
+                        placeholder="Поиск..." />
                     <img class="icon-search" src="/public/icons/search.svg" alt="">
                 </div>
             </div>
         </div>
-        <CardList :items="items" />
+        <div v-else>
+            <MyLoading />
+        </div>
+        <CardList v-if="items.length" :items="items" />
+        <div v-else-if="!loading" class="empty-state">
+            <img src="/public/icons/sad-emoji.png" alt="">
+            <h1>Ничего не найдино!</h1>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import CardList from './Card/CardList.vue';
+import MyLoading from '../assets/UI/MyLoading.vue'
+import MySelect from '@/assets/UI/MySelect.vue';
+import MyInput from '@/assets/UI/MyInput.vue';
+
 defineProps({
-    items: Array
+    items: Array,
+    loading: Boolean
 })
+
+const valueInput = ref('');
+
 </script>
 
 <style scoped>
@@ -57,26 +75,8 @@ defineProps({
     left: 18px;
 }
 
-.select {
-    padding: 10px 15px;
-    border: 2px solid #EAEAEA;
-    border-radius: 10px;
-    outline: none;
-}
-
-.select:focus {
-    border: 2px solid #b3b3b3;
-}
-
-.search {
-    width: 250px;
-    padding: 13px 15px 13px 46px;
-    border: 2px solid #EAEAEA;
-    border-radius: 10px;
-    outline: none;
-}
-
-.search:focus {
-    border: 2px solid #b3b3b3;
+.empty-state {
+    margin-top: 80px;
+    text-align: center;
 }
 </style>

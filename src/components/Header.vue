@@ -8,24 +8,30 @@
             </div>
         </div>
         <ul class="user-panel">
-            <li class="element-panel">
+            <li @click="openDrawer" class="element-panel">
+                <div v-if="newItemCart.length" class="countElementsInCart">{{ newItemCart.length }}</div>
                 <img src="/icons/cart.svg" alt="Cart">
-                <p class="p-element-panel"><b>1205 руб.</b></p>
-            </li>
-            <li class="element-panel">
-                <img src="/icons/heart.svg" alt="Cart">
-                <p class="p-element-panel">Закладки</p>
-            </li>
-            <li class="element-panel">
-                <img src="/icons/profile.svg" alt="Cart">
-                <p class="p-element-panel">Профиль</p>
+                <p class="p-element-panel">Корзина</p>
             </li>
         </ul>
     </header>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
+const emit = defineEmits(['openDrawer'])
 
+defineProps({
+    totalSumCart: Number,
+    newItemCart: Array
+})
+
+const stateDrawer = ref(false)
+
+const openDrawer = () => {
+    stateDrawer.value = stateDrawer.value === false ? true : false
+    emit('openDrawer', stateDrawer)
+}
 </script>
 
 <style scoped>
@@ -75,6 +81,20 @@
 
 .element-panel:first-child {
     margin-left: 0;
+    position: relative;
+}
+
+.countElementsInCart {
+    position: absolute;
+    font-size: 14px;
+    top: -12px;
+    left: 14px;
+    background-color: red;
+    width: 17px;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    height: 17px;
 }
 
 .p-element-panel {

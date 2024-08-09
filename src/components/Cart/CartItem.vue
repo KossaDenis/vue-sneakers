@@ -1,15 +1,28 @@
 <template>
     <div class="cart-item">
-        <img class="sneackers-photo" src="/sneakers/sneakers-12.jpg" alt="Sneakers">
+        <img class="sneackers-photo" :src="imageURL" alt="Sneakers">
         <div class="text-block">
-            <h1 class="title">Мужские Кроссовки Nike Air Max 270</h1>
-            <p class="price">12 999 руб.</p>
+            <h1 class="title">{{ title }}</h1>
+            <p class="price">{{ price.toLocaleString('ru-RU') }} руб.</p>
         </div>
-        <img class="icon-close" src="/icons/close.svg" alt="">
+        <img @click="removeItem" class="icon-close" src="/icons/close.svg" alt="">
     </div>
 </template>
 
-<script>
+<script setup>
+const emit = defineEmits(['removeItemCart'])
+
+const props = defineProps({
+    id: Number,
+    imageURL: String,
+    title: String,
+    price: Number,
+})
+
+const removeItem = () => {
+    emit('removeItemCart', props.id)
+}
+
 </script>
 
 <style scoped>

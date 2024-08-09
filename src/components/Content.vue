@@ -19,7 +19,7 @@
         <div v-else>
             <MyLoading />
         </div>
-        <CardList v-if="items.length" :items="items" />
+        <CardList v-if="items.length" :items="items" :removeElement="removeElement" @totalSum="totalSumCart" @newItem="newItemInCart" @isChecked="checkedState"/>
         <div v-else-if="!loading" class="empty-state">
             <img src="/public/icons/sad-emoji.png" alt="">
             <h1>Ничего не найдино!</h1>
@@ -33,14 +33,27 @@ import CardList from './Card/CardList.vue';
 import MyLoading from '../assets/UI/MyLoading.vue'
 import MySelect from '@/assets/UI/MySelect.vue';
 import MyInput from '@/assets/UI/MyInput.vue';
+const emit = defineEmits(['totalSum', 'newItem', 'sort', 'search', 'isChecked'])
 
 defineProps({
     items: Array,
-    loading: Boolean
+    loading: Boolean,
+    removeElement: Number
 })
 
 const valueInput = ref('');
 
+const totalSumCart = (itemPrice) => {
+    emit('totalSum', itemPrice)
+}
+
+const newItemInCart = (item) => {
+    emit('newItem', item)
+}
+
+const checkedState = (state) => {
+    emit('isChecked', state)
+}
 </script>
 
 <style scoped>
@@ -78,5 +91,12 @@ const valueInput = ref('');
 .empty-state {
     margin-top: 80px;
     text-align: center;
+}
+
+@media (max-width: 960px) {
+    .select-search-block{
+        display: flex;
+        flex-direction: column;
+    }
 }
 </style>
